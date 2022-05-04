@@ -75,26 +75,21 @@ async def setalarm(message):
     await message.answer("Выберите год", reply_markup=yinline_kb)
 
 
-@dp.callback_query_handler(lambda c: c.data in ['2022', '2023'])
+@dp.callback_query_handler()
 async def process_callback_button1(call):
-    await call.message.edit_text("Выберите месяц")
-    await call.message.edit_reply_markup(minline_kb)
 
-
-@dp.callback_query_handler(lambda c: c.data in months)
-async def process_callback_button1(call):
-    await call.message.edit_text("Выберите день")
-    await call.message.edit_reply_markup(dinline_kb)
-
-@dp.callback_query_handler(lambda c: c.data in days)
-async def process_callback_button1(call):
-    await call.message.edit_text("Выберите час")
-    await call.message.edit_reply_markup(hinline_kb)
-
-@dp.callback_query_handler(lambda c: c.data in hours)
-async def process_callback_button1(call):
-    await call.message.edit_text("Выберите минуты")
-    await call.message.edit_reply_markup(mininline_kb)
+    if call['message']['text'] == 'Выберите год':
+        await call.message.edit_text("Выберите месяц")
+        await call.message.edit_reply_markup(minline_kb)
+    if call['message']['text'] == 'Выберите месяц':
+        await call.message.edit_text("Выберите день")
+        await call.message.edit_reply_markup(dinline_kb)
+    if call['message']['text'] == 'Выберите день':
+        await call.message.edit_text("Выберите час")
+        await call.message.edit_reply_markup(hinline_kb)
+    if call['message']['text'] == 'Выберите год':
+        await call.message.edit_text("Выберите минуты")
+        await call.message.edit_reply_markup(mininline_kb)
 
 
 if __name__ == '__main__':
